@@ -6,6 +6,11 @@ import { AppService } from './app.service';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { DishModule } from './dish/dish.module';
+import { IngredientModule } from './ingredient/ingredient.module';
+import { KitchenModule } from './kitchen/kitchen.module';
+import { CategoryModule } from './category/category.module';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -17,6 +22,11 @@ import { AuthModule } from './auth/auth.module';
     }),
     UserModule,
     AuthModule,
+    DishModule,
+    IngredientModule,
+    KitchenModule,
+    CategoryModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

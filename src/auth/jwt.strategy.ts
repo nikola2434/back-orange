@@ -10,16 +10,17 @@ import { ModelType } from '@typegoose/typegoose/lib/types';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @InjectModel(UserModel) private readonly UserModel: ModelType<UserModel>,
-    private readonly configService: ConfigService,
+    private readonly ConfigService: ConfigService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
-      secretOrKey: configService.get('JWT_TOKEN'),
+      ignoreExpiration: true,
+      secretOrKey: ConfigService.get('JWT_TOKEN'),
     });
   }
 
   async validate({ _id }: Pick<UserModel, '_id'>) {
-    return await this.UserModel.findById(_id).exec();
+    const user = await this.UserModel.findById(_id).exec();
+    return user;
   }
 }

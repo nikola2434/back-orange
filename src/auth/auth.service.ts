@@ -53,15 +53,15 @@ export class AuthService {
     const newUser = await user.save();
     const tokens = await this.issueTokens(newUser._id);
 
-    await this.sendMail(newUser.email, newUser._id);
+    this.sendMail(newUser.email, newUser._id);
     return {
-      newUser,
+      user: newUser,
       ...tokens,
     };
   }
 
-  async issueTokens(id: Types.ObjectId) {
-    const data = { id };
+  async issueTokens(_id: Types.ObjectId) {
+    const data = { _id };
     const refreshToken = await this.JwtService.signAsync(data, {
       expiresIn: '14d',
     });
@@ -76,9 +76,9 @@ export class AuthService {
     if (!refreshToken) throw new UnauthorizedException('Не верен токен');
 
     const result = await this.JwtService.verifyAsync(refreshToken);
-    const tokens = await this.issueTokens(result.id);
+    const tokens = await this.issueTokens(result._id);
 
-    const user = await this.UserModel.findById(result.id);
+    const user = await this.UserModel.findById(result._id);
 
     return {
       user,
