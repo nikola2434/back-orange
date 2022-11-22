@@ -11,6 +11,7 @@ import { IngredientModule } from './ingredient/ingredient.module';
 import { KitchenModule } from './kitchen/kitchen.module';
 import { CategoryModule } from './category/category.module';
 import { FileModule } from './file/file.module';
+import { TypeProductModule } from './type-product/type-product.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { FileModule } from './file/file.module';
     KitchenModule,
     CategoryModule,
     FileModule,
+    TypeProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
