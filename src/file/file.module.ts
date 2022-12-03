@@ -1,3 +1,4 @@
+import { FluentFfmpegModule } from '@mrkwskiti/fluent-ffmpeg-nestjs';
 import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { path } from 'app-root-path';
@@ -8,6 +9,7 @@ import { FileService } from './file.service';
   controllers: [FileController],
   providers: [FileService],
   imports: [
+    FluentFfmpegModule.forRoot(),
     ServeStaticModule.forRoot({
       rootPath: `${path}/uploads`,
       serveRoot: '/uploads',

@@ -1,15 +1,18 @@
 import { path } from 'app-root-path';
 import { IResponseFile } from './file.interface';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ensureDir, writeFile } from 'fs-extra';
+import { InjectFluentFfmpeg, Ffmpeg } from '@mrkwskiti/fluent-ffmpeg-nestjs';
+import { videoToImageDto } from './file.dto';
 
 @Injectable()
 export class FileService {
+  constructor(@InjectFluentFfmpeg() private readonly ffmpeg: Ffmpeg) {}
+
   async uploadFile(
     files: Express.Multer.File[],
     folder = 'default',
   ): Promise<IResponseFile[]> {
-
     const uploadFolder = `${path}/uploads/${folder}`;
 
     await ensureDir(uploadFolder);
@@ -25,5 +28,17 @@ export class FileService {
     );
 
     return res;
+  }
+
+  async videoToPicture({ folder, name, source, time }: videoToImageDto) {
+    this.ffmpeg(`${path}${source}`).takeScreenshots(
+      {
+        timemarks: [time],
+        filename: name,
+      },
+      `${path}/uploads/steps/${folder}`,
+    );
+
+    return { url: `/uploads/steps/${folder}/${name}`, name: name };
   }
 }

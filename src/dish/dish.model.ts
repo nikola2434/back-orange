@@ -1,3 +1,5 @@
+import { CategoryModel } from './../category/Category.model';
+import { StepsModel } from './../steps/steps.model';
 import { UserModel } from './../user/user.model';
 import { ICookingSteps, ICharacteristicsDish } from './dish.interface';
 import { prop, Ref } from '@typegoose/typegoose';
@@ -18,8 +20,8 @@ export class DishModel extends TimeStamps {
   @prop()
   description: string;
 
-  @prop()
-  cookingSteps: ICookingSteps[];
+  @prop({ ref: () => StepsModel })
+  cookingSteps: Ref<StepsModel>;
 
   @prop({ default: 0 })
   timeForPreparing: number;
@@ -27,14 +29,11 @@ export class DishModel extends TimeStamps {
   @prop()
   characteristics: ICharacteristicsDish;
 
-  @prop()
-  advice: string;
-
   @prop({ ref: () => UserModel })
   author: Ref<UserModel>;
 
-  @prop()
-  category: string;
+  @prop({ ref: () => CategoryModel })
+  category: Ref<CategoryModel>;
 
   @prop()
   kitchen: string;

@@ -12,6 +12,7 @@ import { KitchenModule } from './kitchen/kitchen.module';
 import { CategoryModule } from './category/category.module';
 import { FileModule } from './file/file.module';
 import { TypeProductModule } from './type-product/type-product.module';
+import { StepsModule } from './steps/steps.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { TypeProductModule } from './type-product/type-product.module';
     CategoryModule,
     FileModule,
     TypeProductModule,
+    StepsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
