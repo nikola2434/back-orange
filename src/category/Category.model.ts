@@ -1,6 +1,6 @@
-import { DishModel } from './../../dist/dish/dish.model.d';
 import { prop, Ref } from '@typegoose/typegoose';
 import { TimeStamps, Base } from '@typegoose/typegoose/lib/defaultClasses';
+import { DishModel } from 'src/dish/dish.model';
 
 export interface CategoryModel extends Base {}
 

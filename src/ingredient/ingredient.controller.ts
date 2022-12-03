@@ -7,6 +7,7 @@ import {
   HttpCode,
   Param,
   Post,
+  Put,
   Query,
   UsePipes,
   ValidationPipe,
@@ -29,7 +30,7 @@ export class IngredientController {
     return await this.IngredientService.getById(id);
   }
 
-  @Post('update/:id')
+  @Put('update/:id')
   @Auth('admin')
   @HttpCode(200)
   @UsePipes(new ValidationPipe())

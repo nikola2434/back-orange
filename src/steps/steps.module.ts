@@ -1,3 +1,4 @@
+import { DishModule } from './../dish/dish.module';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { Module } from '@nestjs/common';
 import { StepsController } from './steps.controller';
@@ -14,6 +15,7 @@ import { StepsModel } from './steps.model';
         schemaOptions: { collection: 'Steps' },
       },
     ]),
+    DishModule,
   ],
 })
 export class StepsModule {}

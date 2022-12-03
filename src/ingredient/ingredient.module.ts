@@ -18,5 +18,6 @@ import { IngredientService } from './ingredient.service';
       },
     ]),
   ],
+  exports: [IngredientService],
 })
 export class IngredientModule {}

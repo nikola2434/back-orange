@@ -5,6 +5,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { Types } from 'mongoose';
 import { updateIngredientDto } from './dto/updateIngredientdto.';
+import { ICharacteristicsDish } from 'src/dish/dish.interface';
 
 @Injectable()
 export class IngredientService {
@@ -31,10 +32,10 @@ export class IngredientService {
   }
 
   async update(id: Types.ObjectId, dto: updateIngredientDto) {
-    if (dto.type) await this.TypeProductService.addIngredient(id, dto.type)
-      return await this.IngredientModel.findByIdAndUpdate(id, dto, {
-        new: true,
-      }).exec();
+    if (dto.type) await this.TypeProductService.addIngredient(id, dto.type);
+    return await this.IngredientModel.findByIdAndUpdate(id, dto, {
+      new: true,
+    }).exec();
   }
 
   async delete(id: Types.ObjectId) {
@@ -52,5 +53,30 @@ export class IngredientService {
     };
     const newIngredient = await this.IngredientModel.create(ingredient);
     return newIngredient._id;
+  }
+
+  async measurement(idIngredients: string[]): Promise<ICharacteristicsDish> {
+    const ingredients: IngredientModel[] = await this.IngredientModel.find(
+      idIngredients,
+    );
+    const characteristics = ingredients.reduce(
+      (acc, item) => {
+        return {
+          ...acc,
+          calories: acc.calories + item.calories,
+          carbohydrates: acc.carbohydrates + item.carbohydrates,
+          fats: acc.fats + item.fat,
+          squirrels: acc.squirrels + item.protein,
+        } as ICharacteristicsDish;
+      },
+      {
+        calories: 0,
+        carbohydrates: 0,
+        fats: 0,
+        squirrels: 0,
+      } as ICharacteristicsDish,
+    );
+
+    return characteristics;
   }
 }

@@ -11,6 +11,7 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  Put,
 } from '@nestjs/common';
 import { Auth } from 'src/auth/Auth.decorator';
 import { Types } from 'mongoose';
@@ -31,7 +32,7 @@ export class TypeProductController {
     return await this.TypeProductService.create();
   }
 
-  @Post('update/:id')
+  @Put('update/:id')
   @Auth('admin')
   @HttpCode(200)
   @UsePipes(new ValidationPipe())
