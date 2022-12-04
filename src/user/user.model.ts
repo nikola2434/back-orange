@@ -1,4 +1,5 @@
-import { prop } from '@typegoose/typegoose';
+import { DishModel } from './../dish/dish.model';
+import { prop, Ref } from '@typegoose/typegoose';
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 
 export interface UserModel extends Base {}
@@ -16,8 +17,8 @@ export class UserModel extends TimeStamps {
   @prop({ required: true, default: false })
   role: boolean;
 
-  @prop({ default: [] })
-  favoriteRecipes: string[];
+  @prop({ default: [], ref: () => DishModel })
+  favoriteRecipes: Ref<DishModel>[];
 
   @prop()
   avatar: string;
@@ -30,4 +31,7 @@ export class UserModel extends TimeStamps {
 
   @prop({ default: false })
   isActive: boolean;
+
+  @prop({ default: [], ref: () => DishModel })
+  dislikeRecipe: Ref<DishModel>[];
 }

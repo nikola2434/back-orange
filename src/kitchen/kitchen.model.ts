@@ -13,5 +13,5 @@ export class KitchenModel extends TimeStamps {
   description: string;
 
   @prop({ ref: () => DishModel })
-  dish: Ref<DishModel[]>;
+  dish: Ref<DishModel>[];
 }

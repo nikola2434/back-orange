@@ -27,7 +27,7 @@ export class KitchenService {
   }
 
   async createKitchen() {
-    const newKitchen: KitchenUpdateDto = {
+    const newKitchen = {
       title: ' ',
       description: '',
       dish: [],

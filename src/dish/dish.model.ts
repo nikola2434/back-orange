@@ -24,7 +24,7 @@ export class DishModel extends TimeStamps {
   description: string;
 
   @prop({ ref: () => StepsModel })
-  cookingSteps: Ref<StepsModel[]>;
+  cookingSteps: Ref<StepsModel>[];
 
   @prop({ default: 0 })
   timeForPreparing: number;
@@ -42,7 +42,7 @@ export class DishModel extends TimeStamps {
   kitchen: Ref<KitchenModel>;
 
   @prop({ ref: () => IngredientModel })
-  ingredients: Ref<IngredientModel[]>;
+  ingredients: Ref<IngredientModel>[];
 
   @prop({ default: 0 })
   countOpen: number;
